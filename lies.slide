@@ -1,0 +1,109 @@
+Lies, Damn Lies and Benchmarks
+
+amnon
+
+* Speed
+
+Does it matter?
+
+* Benchmarks
+
+   go test -b
+
+nice figures
+
+* Myths
+
+- nanoseconds matter
+
+- faster instructions means faster programs
+
+- large progarams are like small ones, but more so
+
+* nanoseconds matter?
+
+Google search target 200ms - 200,000,000 ns
+
+* numbers all programmers should know
+
+from Jeff Dean
+
+    L1 cache reference                           0.5 ns
+    Branch mispredict                            5   ns
+    L2 cache reference                           7   ns                      14x L1 cache
+    Mutex lock/unlock                           25   ns
+    Main memory reference                      100   ns                      20x L2 cache, 200x L1 cache
+    Compress 1K bytes with Zippy             3,000   ns        3 us
+    Send 1K bytes over 1 Gbps network       10,000   ns       10 us
+    Read 4K randomly from SSD*             150,000   ns      150 us          ~1GB/sec SSD
+    Read 1 MB sequentially from memory     250,000   ns      250 us
+    Round trip within same datacenter      500,000   ns      500 us
+    Read 1 MB sequentially from SSD*     1,000,000   ns    1,000 us    1 ms  ~1GB/sec SSD, 4X memory
+    Disk seek                           10,000,000   ns   10,000 us   10 ms  20x datacenter roundtrip
+    Read 1 MB sequentially from disk    20,000,000   ns   20,000 us   20 ms  80x memory, 20X SSD
+    Send packet CA->Netherlands->CA    150,000,000   ns  150,000 us  150 ms
+
+* faster instructions -> faster programs?
+
+or more stall cycles?
+
+* real program latencies 
+dominated by 
+- network  delays
+- queuing
+- database access
+- lock contention
+- Garbage collection
+- cache misses
+
+* problem with micro-benchmarks
+- data in cache
+
+* Memory CPU Bottlekneck
+
+100ns for L3 miss to be serviced
+
+Caches get larger every generation
+Skylake H 
+- 32K L1 per core
+- 256K L2
+- 8Mb L3
+
+when you care about speed, your data will not fit in cache
+
+pointer chasing defeats all caches
+
+Faster code does not mean faster exectution
+Program is memory bound
+Just waiting longer for cache misses.
+
+* Insrumentation
+
+- performance counters
+- vtune
+- perf [[https://perf.wiki.kernel.org/]]
+
+
+* Go Can Help
+
+- Embedding
+  - related data located together
+- Slices
+  - data stored in order of traversal
+  - Modern cache will detect strided access and prefetch the data
+- int8 int16 int32 etc.
+  - use smaller types where possible - more can fit into a cache line
+
+These features reduce allocations, reduce pointer chasing 
+and help produce cache friendly code
+
+* Example Runebuffer Rewrite
+
+* Resources
+
+* Summary
+- Don't do it yet
+- Optimize data rather than code
+- Allocations matter
+- Use embedding
+- Slices are you friend
