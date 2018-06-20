@@ -2,25 +2,27 @@ Lies, Damn Lies and Benchmarks
 
 amnon
 
-* Speed
 
-Does it matter?
+* Story
+.image https://c1.staticflickr.com/3/2759/4273477501_c0e077e5f6_b.jpg 600 _
 
-* Benchmarks
+* What is our lamp
 
-   go test -b
-
-nice figures
+   go test -bench .
 
 * Myths
 
+- numbers do not lie
+
 - nanoseconds matter
 
-- faster instructions means faster programs
+- faster means faster
 
 - large progarams are like small ones, but more so
 
 * nanoseconds matter?
+
+Go is usally fast enough
 
 Google search target 200ms - 200,000,000 ns
 
@@ -59,23 +61,29 @@ dominated by
 * problem with micro-benchmarks
 - data in cache
 
+* Moore's law mismatch
+- CPU speed doubles every 2 years
+- Memory speed doubles every 10 years
+.image https://dave.cheney.net/wp-content/uploads/2014/06/Gocon-2014-10.jpg
+
 * Memory CPU Bottlekneck
 
 100ns for L3 miss to be serviced
 
 Caches get larger every generation
 Skylake H 
-- 32K L1 per core
-- 256K L2
-- 8Mb L3
+- 32K L1 per core - 4 cycles
+- 256K L2 - 12-64 cycles
+- 8Mb L3 - 42 cycles
+DRAM 42 cycles + 51ns
 
 when you care about speed, your data will not fit in cache
 
-pointer chasing defeats all caches
+pointer chasing defeats all attempts to prefetch
 
 Faster code does not mean faster exectution
-Program is memory bound
-Just waiting longer for cache misses.
+
+Most real programs are memory bound
 
 * Insrumentation
 
@@ -100,6 +108,7 @@ and help produce cache friendly code
 * Example Runebuffer Rewrite
 
 * Resources
+- https://en.wikichip.org/wiki/intel/microarchitectures
 
 * Summary
 - Don't do it yet
