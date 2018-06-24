@@ -109,7 +109,28 @@ Most real programs are memory bound
 These features reduce allocations, reduce pointer chasing 
 and help produce cache friendly code
 
-* Example Runebuffer Rewrite
+* Example Linked List
+
+.code llist.go /START OMIT/,/END OMIT/
+.code llist.go /START2 OMIT/,/END2 OMIT/
+.code llist.go /STARTS OMIT/,/ENDS OMIT/
+
+* Timings
+.code llist_test.go /STARTBENCH OMIT/,/ENDBENCH OMIT/
+
+    goos: darwin
+    goarch: amd64
+    BenchmarkSumV10-4       	100000000	        12.9 ns/op
+    BenchmarkSumV100-4      	20000000	        89.0 ns/op
+    BenchmarkSumV1000-4     	 2000000	       805 ns/op
+    BenchmarkSumV10000-4    	  200000	      8210 ns/op
+    BenchmarkSumV100000-4   	   20000	     80502 ns/op
+    BenchmarkSum10-4        	100000000	        15.5 ns/op
+    BenchmarkSum100-4       	10000000	       217 ns/op
+    BenchmarkSum1000-4      	 1000000	      2054 ns/op
+    BenchmarkSum10000-4     	   30000	     62039 ns/op
+    BenchmarkSum100000-4    	    1000	   2851967 ns/op
+
 
 * Resources
 - https://en.wikichip.org/wiki/intel/microarchitectures
