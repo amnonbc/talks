@@ -10,6 +10,13 @@ amnon
 
    go test -bench .
 
+
+   func BenchmarkMyFun(b *testing.B) {
+       for i := 0; i < b.N; i++ {
+           MyFun()
+       }
+   }
+
 * Myths
 
 - numbers do not lie
@@ -58,8 +65,7 @@ dominated by
 - Garbage collection
 - cache misses
 
-* problem with micro-benchmarks
-- data in cache
+
 
 * Moore's law mismatch
 - CPU speed doubles every 2 years
@@ -68,7 +74,7 @@ dominated by
 
 * Memory CPU Bottlekneck
 
-100ns for L3 miss to be serviced
+100ns to access main memory
 
 * Caches
 
@@ -76,12 +82,18 @@ dominated by
 
 * Caches 
 Caches get larger every generation
-Skylake H 
-- 32K L1 per core - 4 cycles
-- 256K L2 - 12-64 cycles
-- 8Mb L3 - 42 cycles
+Skylake H  28 core
+- 32K instruction + 32K data L1 per core - 4 cycles
+- 1Mb L2 - 12-64 cycles
+- 1.3xCores L3 - 42 cycles
 DRAM 42 cycles + 51ns
 
+Cache only helps you if the data you need is in the cache
+- temporal locality
+- spatial locakity
+
+- eviction
+- stall cycles
 
 pointer chasing defeats all attempts to prefetch
 
@@ -89,11 +101,15 @@ Faster code does not mean faster exectution
 
 Most real programs are memory bound
 
+* problem with micro-benchmarks
+- data in cache
+
 * Instrumentation
 
 - performance counters
 - vtune
 - perf [[https://perf.wiki.kernel.org/]]
+- oprofile
 
 
 * Go Can Help
@@ -133,6 +149,7 @@ and help produce cache friendly code
 
 
 * Resources
+- Dave Cheney https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
 - https://en.wikichip.org/wiki/intel/microarchitectures
 - Ulrich Drepper: What every programmer should know about memory [[https://lwn.net/Articles/250967/]]
 
