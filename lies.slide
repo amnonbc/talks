@@ -79,7 +79,7 @@ Caches get larger every generation
 Skylake H  28 core
 - 32K instruction + 32K data L1 per core - 4 cycles
 - 1Mb L2 - 12-64 cycles
-- 1.3xCores L3 - 42 cycles
+- 1.3M xCores L3 - 42 cycles
 DRAM 42 cycles + 51ns
 
 Cache only helps you if the data you need is in the cache
