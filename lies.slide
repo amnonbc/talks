@@ -140,6 +140,9 @@ and help produce cache friendly code
     BenchmarkSum10000-4     	   30000	     62039 ns/op
     BenchmarkSum100000-4    	    1000	   2851967 ns/op
 
+* results
+
+.image timings.png
 
 * Resources
 - Dave Cheney https://dave.cheney.net/2013/06/30/how-to-write-benchmarks-in-go
